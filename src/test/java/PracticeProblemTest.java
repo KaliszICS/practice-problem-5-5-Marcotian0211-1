@@ -1,62 +1,98 @@
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.*;
-import java.io.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import java.lang.reflect.Method;
 
-public class PracticeProblemTest {
-
-   @Test
-   public void testOutput()
-   {
-     PrintStream originalOut = System.out;
-     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-     System.setOut(new PrintStream(bos));
-
-     // action
-     PracticeProblem.q1();
-
-     // assertion
-     assertEquals("There once was a man from St. Ives.\n", bos.toString());
-
-     // undo the binding in System
-     System.setOut(originalOut);
-   }
+class PracticeProblemTest {
 
    @Test
-   public void testInputandOutput()
-   {
-      String data = "Users Input";
-      System.setIn(new ByteArrayInputStream(data.getBytes()));
-      
-      PrintStream originalOut = System.out;
-      ByteArrayOutputStream bos = new ByteArrayOutputStream();
-      System.setOut(new PrintStream(bos));
-
-      // action
-      PracticeProblem.q1();
-
-      // assertion
-      assertEquals("There once was a man from St. Ives.\n", bos.toString());
-
-      // undo the binding in System
-      System.setOut(originalOut);
-   }
-
-   @Test
-   public void testQ3()
-   {
-     
-   }
-
-   @Test
-   @DisplayName("")
-   void isEvenTest1() {
+   @DisplayName("isPalindrome should return true for a simple lowercase palindrome")
+   void isPalindromeTest1() {
       Class<?> testClass = PracticeProblem.class;
       try {
-         Class[] cArg = { int.class };
-         Method method = testClass.getDeclaredMethod("isEven", cArg);
-         assertEquals(true, (boolean) method.invoke(null, 4));
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(true, (boolean) method.invoke(null, "racecar"));
       } catch (NoSuchMethodException e) {
-         fail("Method does not exist");
+         fail("Method isPalindrome does not exist");
+      } catch (Exception e) {
+         fail("Something weird happened: " + e);
+      }
+   }
+
+   @Test
+   @DisplayName("isPalindrome should be case insensitive (e.g., 'Bob')")
+   void isPalindromeTest2() {
+      Class<?> testClass = PracticeProblem.class;
+      try {
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(true, (boolean) method.invoke(null, "Bob"));
+      } catch (Exception e) {
+         fail("Something weird happened: " + e);
+      }
+   }
+
+   @Test
+   @DisplayName("isPalindrome should ignore spaces in phrases")
+   void isPalindromeTest3() {
+      Class<?> testClass = PracticeProblem.class;
+      try {
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(true, (boolean) method.invoke(null, "never odd or even"));
+      } catch (Exception e) {
+         fail("Something weird happened: " + e);
+      }
+   }
+
+   @Test
+   @DisplayName("isPalindrome should return false for non-palindromes")
+   void isPalindromeTest4() {
+      Class<?> testClass = PracticeProblem.class;
+      try {
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(false, (boolean) method.invoke(null, "hello"));
+      } catch (Exception e) {
+         fail("Something weird happened: " + e);
+      }
+   }
+
+   @Test
+   @DisplayName("isPalindrome should return true for complex phrases with mixed casing and spaces")
+   void isPalindromeTest5() {
+      Class<?> testClass = PracticeProblem.class;
+      try {
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(true, (boolean) method.invoke(null, "Was it a car or a cat I saw"));
+      } catch (Exception e) {
+         fail("Something weird happened: " + e);
+      }
+   }
+
+   @Test
+   @DisplayName("isPalindrome should return true for a single character")
+   void isPalindromeTest6() {
+      Class<?> testClass = PracticeProblem.class;
+      try {
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(true, (boolean) method.invoke(null, "a"));
+      } catch (Exception e) {
+         fail("Something weird happened: " + e);
+      }
+   }
+
+   @Test
+   @DisplayName("isPalindrome should return true for an empty string")
+   void isPalindromeTest7() {
+      Class<?> testClass = PracticeProblem.class;
+      try {
+         Class<?>[] cArg = { String.class };
+         Method method = testClass.getDeclaredMethod("isPalindrome", cArg);
+         assertEquals(true, (boolean) method.invoke(null, ""));
       } catch (Exception e) {
          fail("Something weird happened: " + e);
       }
